@@ -94,6 +94,7 @@ public class PizzeriaAdminConsoleApp {
 		String code, nom;
 		double prix;
 
+		// Créer la nouvelle pizza.
 		System.out.println("Veuillez saisir le code");
 		code = sc.nextLine();
 		System.out.println("Veuillez saisir le nom (sans espace)");
@@ -101,9 +102,11 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("Veuillez saisir le prix");
 		prix = Double.parseDouble(sc.nextLine());
 
+		// Création d'un nouveau et plus grand tableau de pizza.
 		Pizza p = new Pizza(code, nom, prix);
 		Pizza[] tab = new Pizza[PizzeriaAdminConsoleApp.listePizza.length + 1];
 
+		// Transférer le contenu de l'ancien tableau dans le nouveau.
 		for (int i = 0; i < PizzeriaAdminConsoleApp.listePizza.length; i++) {
 			tab[i] = PizzeriaAdminConsoleApp.listePizza[i];
 		}
@@ -116,7 +119,7 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	private static void updatePizza() {
 		String code;
-
+		// Afficher les pizzas.
 		for (Pizza p : PizzeriaAdminConsoleApp.listePizza) {
 			System.out.println(p.toString());
 		}
@@ -126,6 +129,7 @@ public class PizzeriaAdminConsoleApp {
 		code = sc.nextLine();
 		if (!code.equals("99")) {
 			int index = 0;
+			// Trouver la bonne pizza à partir de son code.
 			for (int i = 0; i < PizzeriaAdminConsoleApp.listePizza.length; i++) {
 				if (PizzeriaAdminConsoleApp.listePizza[i].getCode().equals(code)) {
 					index = i;
@@ -139,7 +143,7 @@ public class PizzeriaAdminConsoleApp {
 
 			System.out.println("Veuillez saisir le prix");
 			PizzeriaAdminConsoleApp.listePizza[index].setPrix(Double.parseDouble(sc.nextLine()));
-
+			// Afficher la liste des pizza apres la modification.
 			for (Pizza p : PizzeriaAdminConsoleApp.listePizza) {
 				System.out.println(p.toString());
 			}
@@ -152,6 +156,7 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	private static void deletePizza() {
 		String code;
+		// Afficher les pizzas.
 		for (Pizza p : PizzeriaAdminConsoleApp.listePizza) {
 			System.out.println(p.toString());
 		}
@@ -160,7 +165,7 @@ public class PizzeriaAdminConsoleApp {
 
 		code = sc.nextLine();
 		if (!code.equals("99")) {
-			// Trouverla pizza
+			// Trouver la pizza.
 			int index = 0;
 			for (int i = 0; i < PizzeriaAdminConsoleApp.listePizza.length; i++) {
 				if (PizzeriaAdminConsoleApp.listePizza[i].getCode().equals(code)) {
@@ -168,7 +173,7 @@ public class PizzeriaAdminConsoleApp {
 				}
 			}
 
-			// Del la pizza
+			// Supprimer la pizza.
 			PizzeriaAdminConsoleApp.listePizza[index] = null;
 			Pizza[] tab = new Pizza[PizzeriaAdminConsoleApp.listePizza.length - 1];
 			int j = 0;
