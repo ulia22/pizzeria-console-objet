@@ -3,6 +3,7 @@ package fr.pizzeria.model;
 /** Classe représentant une pizza par instance. */
 public class Pizza {
 
+	
 	/**
 	 * ID global des pizzas. Contient un ID unique libre à associer à la
 	 * prochaine instance de Pizza, lequel est incrémenté de 1 appres chaque
