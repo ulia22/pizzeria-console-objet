@@ -56,7 +56,7 @@ public class PizzeriaAdminConsoleApp {
 		optionsMenu.put(2, ajouter);
 		optionsMenu.put(3, modifier);
 		optionsMenu.put(4, supprimer);
-		optionsMenu.put(99, null);
+		optionsMenu.put(99, stopperProgramme);
 
 		do {
 			System.out.println(menu);
