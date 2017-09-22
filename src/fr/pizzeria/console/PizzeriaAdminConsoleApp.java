@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
+import fr.pizzeria.ihm.FinProgrammeOptionMenu;
 import fr.pizzeria.ihm.ListerPizzasOptionMenu;
 import fr.pizzeria.ihm.ModifierPizzaOptionMenu;
 import fr.pizzeria.ihm.OptionMenu;
@@ -47,6 +48,7 @@ public class PizzeriaAdminConsoleApp {
 		OptionMenu ajouter = new AjouterPizzaOptionMenu(sc);
 		OptionMenu modifier = new ModifierPizzaOptionMenu(sc);
 		OptionMenu supprimer = new SupprimerPizzaOptionMenu(sc);
+		OptionMenu stopperProgramme = new FinProgrammeOptionMenu();
 
 		optionsMenu = new LinkedHashMap<Integer, OptionMenu>();
 
@@ -62,9 +64,6 @@ public class PizzeriaAdminConsoleApp {
 
 			if(optionsMenu.get(choice) != null){
 				optionsMenu.get(choice).execute();
-			}
-			if(optionsMenu.containsKey(choice) && (optionsMenu.get(choice) == null)){
-				System.out.println("Aurevoir \u2639");
 			}
 			if(!optionsMenu.containsKey(choice)){
 				System.out.println("Mauvaise entrée.");
