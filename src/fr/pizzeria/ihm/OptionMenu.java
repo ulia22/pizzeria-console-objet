@@ -9,7 +9,7 @@ package fr.pizzeria.ihm;
  */
 public abstract class OptionMenu {
 
-
 	/** Execute un algorithme qui manipule le menu des pizzas.*/
 	public abstract void execute();
+	
 }

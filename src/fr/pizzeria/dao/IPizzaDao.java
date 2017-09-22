@@ -3,6 +3,8 @@
  */
 package fr.pizzeria.dao;
 
+import java.util.List;
+
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -14,10 +16,10 @@ public interface IPizzaDao {
 
 
 	/**
-	 * Retourne un tableau contenant l'ensemble des pizzas, sans avoir à se soucier de la manière selon laquelle elles sont stockés en mémoire.
-	 * @return Pizza[] Un tableau contenant l'ensemble des pizzas.
+	 * Retourne une collection (arraylist) contenant l'ensemble des pizzas, sans avoir à se soucier de la manière selon laquelle elles sont stockés en mémoire.
+	 * @return List<Pizza> Une collection contenant l'ensemble des pizzas.
 	 */
-	Pizza[] findAllPizza();
+	List<Pizza> findAllPizza();
 
 	/**
 	 * Permet d'ajouter une nouvelle pizza à l'ensemble de pizzas.

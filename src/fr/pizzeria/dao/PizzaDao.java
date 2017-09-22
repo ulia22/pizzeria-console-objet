@@ -4,7 +4,7 @@
 package fr.pizzeria.dao;
 
 import fr.pizzeria.model.Pizza;
-
+import java.util.*;
 /**
  * PizzaDao est un manager qui permet de gérer les manipulations et le stockage de l'ensemble des pizzas.
  * Ceci se passe de façon opaque quand au autres classe.
@@ -17,7 +17,7 @@ public final class PizzaDao implements IPizzaDao {
 	/** L'instance unique du manager de pizza PizzaDao*/
 	private static PizzaDao instance = null;
 	/** Tableau contenant la liste des pizzas au menu. */
-	private Pizza[] listePizza;
+	private List<Pizza> listePizza;
 
 
 
@@ -26,17 +26,17 @@ public final class PizzaDao implements IPizzaDao {
 	 */
 	private PizzaDao() {
 		super();
-		listePizza = new Pizza[8];
+		listePizza = new ArrayList<Pizza>();
 		Pizza.setCurrentGlobalId(0);
 
-		listePizza[0] = new Pizza("PEP", "Pépéroni", 12.5);
-		listePizza[1] = new Pizza("MAR", "Margherita", 14.00);
-		listePizza[2] = new Pizza("REIN", "La Reine", 11.50);
-		listePizza[3] = new Pizza("FRO", "La 4 fromages", 12.00);
-		listePizza[4] = new Pizza("CAN", "La cannibale", 12.50);
-		listePizza[5] = new Pizza("SAV", "La savoyarde", 13.00);
-		listePizza[6] = new Pizza("ORI", "L’orientale", 13.50);
-		listePizza[7] = new Pizza("IND", "L’indienne", 14.00);
+		listePizza.add(new Pizza("PEP", "Pépéroni", 12.5));
+		listePizza.add(new Pizza("MAR", "Margherita", 14.00));
+		listePizza.add(new Pizza("REIN", "La Reine", 11.50));
+		listePizza.add(new Pizza("FRO", "La 4 fromages", 12.00));
+		listePizza.add(new Pizza("CAN", "La cannibale", 12.50));
+		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00));
+		listePizza.add(new Pizza("ORI", "L’orientale", 13.50));
+		listePizza.add(new Pizza("IND", "L’indienne", 14.00));
 
 	}
 
@@ -58,8 +58,15 @@ public final class PizzaDao implements IPizzaDao {
 	/* (non-Javadoc)
 	 * @see fr.pizzeria.dao.IPizzaDao#findAllPizza()
 	 */
-	public Pizza[] findAllPizza() {
+	public List<Pizza> findAllPizza() {
 		return listePizza;
+	}
+	
+	/**Afficher le menu*/
+	public void displayPizzaMenu(){
+		for(Pizza p : getListePizza()){
+			System.out.println(p.toString());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -69,16 +76,7 @@ public final class PizzaDao implements IPizzaDao {
 		if(pizza == null){
 			return false;
 		}
-		// Création d'un nouveau et plus grand tableau de pizza.
-		Pizza[] tab = new Pizza[listePizza.length + 1];
-
-		// Transférer le contenu de l'ancien tableau dans le nouveau.
-		for (int i = 0; i < listePizza.length; i++) {
-			tab[i] = listePizza[i];
-		}
-		tab[listePizza.length] = pizza;
-		listePizza = tab;
-
+		listePizza.add(pizza);
 		return true;
 	}
 
@@ -86,19 +84,16 @@ public final class PizzaDao implements IPizzaDao {
 	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String, fr.pizzeria.model.Pizza)
 	 */
 	public boolean updatePizza(String codePizza, Pizza pizza) {
-		int index = -1;
-		// Trouver la bonne pizza à partir de son code.
-		for (int i = 0; i < listePizza.length; i++) {
-			if (listePizza[i].getCode().equals(codePizza)) {
-				index = i;
+		// Trouver la bonne pizza à partir de son code et la modifier.
+		for(Pizza p : listePizza){
+			if(p.getCode().equals(codePizza)){
+				p.setCode(pizza.getCode());
+				p.setNom(pizza.getNom());
+				p.setPrix(pizza.getPrix());
+				return true;
 			}
 		}
-		if(index == -1){
-			return false;
-		}
-		listePizza[index] = pizza;
-
-		return true;
+		return false;
 	}
 
 
@@ -106,37 +101,20 @@ public final class PizzaDao implements IPizzaDao {
 	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
 	 */
 	public boolean deletePizza(String codePizza) {
-		// Trouver la pizza.
-		int index = -1;
-		for (int i = 0; i < listePizza.length; i++) {
-			if (listePizza[i].getCode().equals(codePizza)) {
-				index = i;
+		// Trouver la pizza et la supprimer.
+		for(Pizza p : listePizza){
+			if(p.getCode().equals(codePizza)){
+				return listePizza.remove(p);
 			}
 		}
-		if(index == -1){
-			return false;
-		}
-
-		// Supprimer la pizza.
-		listePizza[index] = null;
-		Pizza[] tab = new Pizza[listePizza.length - 1];
-		int j = 0;
-		for (int i = 0; i < listePizza.length; i++) {
-			if (listePizza[i] != null) {
-				tab[j] = listePizza[i];
-				j++;
-			}
-		}
-		listePizza = tab;
-
-		return true;
+		return false;
 	}
 
 	/**
 	 * Getter.
 	 * @return the listePizza
 	 */
-	public Pizza[] getListePizza() {
+	public List<Pizza> getListePizza() {
 		return listePizza;
 	}
 
@@ -144,7 +122,7 @@ public final class PizzaDao implements IPizzaDao {
 	 * Setter.
 	 * @param listePizza the listePizza to set
 	 */
-	public void setListePizza(Pizza[] listePizza) {
+	public void setListePizza(List<Pizza> listePizza) {
 		this.listePizza = listePizza;
 	}
 

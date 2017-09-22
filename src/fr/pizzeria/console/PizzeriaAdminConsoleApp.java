@@ -1,6 +1,8 @@
 package fr.pizzeria.console;
 
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
@@ -19,6 +21,9 @@ import fr.pizzeria.ihm.SupprimerPizzaOptionMenu;
  */
 public class PizzeriaAdminConsoleApp {
 
+	/**Liste des options du menu*/
+	static Map<Integer, OptionMenu> optionsMenu;
+
 	/** Chaine de caractère contenant le menu. */
 	private static String menu = new String(
 			"***** Pizzeria Administration *****\n" + "1. Lister les pizzas\n" + "2. Ajouter une nouvelle pizza\n"
@@ -35,7 +40,7 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	public static void main(String[] args) {
 		sc.useLocale(Locale.US);
-		String choice;
+		int choice;
 		PizzaDao.getInstance().findAllPizza();
 
 		OptionMenu lister = new ListerPizzasOptionMenu();
@@ -43,31 +48,29 @@ public class PizzeriaAdminConsoleApp {
 		OptionMenu modifier = new ModifierPizzaOptionMenu(sc);
 		OptionMenu supprimer = new SupprimerPizzaOptionMenu(sc);
 
+		optionsMenu = new LinkedHashMap<Integer, OptionMenu>();
+
+		optionsMenu.put(1, lister);
+		optionsMenu.put(2, ajouter);
+		optionsMenu.put(3, modifier);
+		optionsMenu.put(4, supprimer);
+		optionsMenu.put(99, null);
+
 		do {
 			System.out.println(menu);
-			choice = sc.nextLine();
-			switch (choice) {
-			case "1":
-				lister.execute();
-				break;
-			case "2":
-				ajouter.execute();
-				break;
-			case "3":
-				modifier.execute();
-				break;
-			case "4":
-				supprimer.execute();
-				break;
-			case "99":
-				System.out.println("Aurevoir \u2639");
-				break;
-			default:
-				System.out.println("Mauvaise entrée.");
-				break;
+			choice = Integer.parseInt(sc.nextLine());
 
+			if(optionsMenu.get(choice) != null){
+				optionsMenu.get(choice).execute();
 			}
-		} while (!choice.equals("99"));
+			if(optionsMenu.containsKey(choice) && (optionsMenu.get(choice) == null)){
+				System.out.println("Aurevoir \u2639");
+			}
+			if(!optionsMenu.containsKey(choice)){
+				System.out.println("Mauvaise entrée.");
+			}
+
+		} while (choice != 99);
 		sc.close();
 	}
 }

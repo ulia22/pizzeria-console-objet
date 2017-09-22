@@ -6,7 +6,6 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
-import fr.pizzeria.model.Pizza;
 
 /**
  * Option du menu permettant de supprimer une pizza du menu.
@@ -31,9 +30,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	public void execute() {
 		String code;
 		// Afficher les pizzas.
-		for (Pizza p : PizzaDao.getInstance().getListePizza()) {
-			System.out.println(p.toString());
-		}
+		PizzaDao.getInstance().displayPizzaMenu();
 		System.out.println("Veuillez choisir la pizza à supprimer.");
 		System.out.println("(99 pour abandonner).");
 
