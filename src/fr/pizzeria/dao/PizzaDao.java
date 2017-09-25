@@ -3,6 +3,9 @@
  */
 package fr.pizzeria.dao;
 
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 import java.util.*;
 /**
@@ -64,50 +67,51 @@ public final class PizzaDao implements IPizzaDao {
 	
 	/**Afficher le menu*/
 	public void displayPizzaMenu(){
-		for(Pizza p : getListePizza()){
-			System.out.println(p.toString());
+		for(Iterator<Pizza> it = getListePizza().listIterator(); it.hasNext();){
+			System.out.println(it.next().toString());
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.pizzeria.dao.IPizzaDao#saveNexPizza(fr.pizzeria.model.Pizza)
 	 */
-	public boolean saveNexPizza(Pizza pizza) {
+	public void saveNexPizza(Pizza pizza) throws SavePizzaException {
 		if(pizza == null){
-			return false;
+			throw new SavePizzaException("La pizza fournis est une reference null");
 		}
 		listePizza.add(pizza);
-		return true;
+		return ;
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String, fr.pizzeria.model.Pizza)
 	 */
-	public boolean updatePizza(String codePizza, Pizza pizza) {
+	public void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException{
 		// Trouver la bonne pizza à partir de son code et la modifier.
 		for(Pizza p : listePizza){
 			if(p.getCode().equals(codePizza)){
 				p.setCode(pizza.getCode());
 				p.setNom(pizza.getNom());
 				p.setPrix(pizza.getPrix());
-				return true;
+				return ;
 			}
 		}
-		return false;
+		throw new UpdatePizzaException("Le code de la pizza n'existe pas.");
 	}
 
 
 	/* (non-Javadoc)
 	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
 	 */
-	public boolean deletePizza(String codePizza) {
+	public void deletePizza(String codePizza) throws DeletePizzaException{
 		// Trouver la pizza et la supprimer.
 		for(Pizza p : listePizza){
 			if(p.getCode().equals(codePizza)){
-				return listePizza.remove(p);
+				listePizza.remove(p);
+				return ;
 			}
 		}
-		return false;
+		throw new DeletePizzaException("Le code de la pizza n'existe pas.");
 	}
 
 	/**

@@ -6,6 +6,7 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.exception.StockageException;
 
 /**
  * Option du menu permettant de supprimer une pizza du menu.
@@ -36,7 +37,11 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 		code = sc.nextLine();
 		if (!code.equals("99")) {
+			try{
 			PizzaDao.getInstance().deletePizza(code);
+			}catch(StockageException e){
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 

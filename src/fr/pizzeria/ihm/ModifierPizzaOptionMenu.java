@@ -6,6 +6,7 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -54,7 +55,12 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 			Pizza p = new Pizza(newCode, nom, prix);
 
-			PizzaDao.getInstance().updatePizza(code, p);
+			try{
+				PizzaDao.getInstance().updatePizza(code, p);
+			}catch(StockageException e){
+				System.out.println(e.getMessage());
+			}
+			
 
 			// Afficher la liste des pizza apres la modification.
 			for (Pizza pi : PizzaDao.getInstance().getListePizza()) {

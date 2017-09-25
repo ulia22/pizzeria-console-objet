@@ -5,6 +5,9 @@ package fr.pizzeria.dao;
 
 import java.util.List;
 
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -24,20 +27,28 @@ public interface IPizzaDao {
 	/**
 	 * Permet d'ajouter une nouvelle pizza à l'ensemble de pizzas.
 	 * @param pizza L'objet pizza à insérer.
-	 * @return true si l'ajout s'est bien passé, sinon false.
+	 * @throws SavePizzaException lance une exception si la pizza de param est nulle
 	 */
-	boolean saveNexPizza(Pizza pizza);
+	void saveNexPizza(Pizza pizza) throws SavePizzaException;
 	/**
 	 * Permet de modifier une pizza parmis l'ensemble des pizzas.
 	 * @param codePizza Le code de la pizza à modifier.
 	 * @param pizza L'objet pizza contenant les nouvelles valeurs pour la pizza avec le code codePizza.
 	 * @return true s'il n'y a pas eu d'erreur, sinon false.
 	 */
-	boolean updatePizza(String codePizza, Pizza pizza);
+	/**
+	 * Permet de modifier une pizza parmis l'ensemble des pizzas.
+	 * @param codePizza Le code de la pizza à modifier.
+	 * @param pizza L'objet pizza contenant les nouvelles valeurs pour la pizza avec le code codePizza.
+	 * @throws UpdatePizzaException lance une exception si le code fournis ne correspond à aucune pizza
+	 */
+	void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException;
+
+	
 	/**
 	 * Permet de supprimer une instance pizza de l'ensemble des pizzas.
 	 * @param codePizza Le code de la pizza à supprimer.
-	 * @return s'il n'y a pas eu d'erreur, sinon false.
+	 * @throws DeletePizzaException lance une exception si le code fournis ne correspond à aucune pizza
 	 */
-	boolean deletePizza(String codePizza);
+	void deletePizza(String codePizza) throws DeletePizzaException;
 }

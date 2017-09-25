@@ -6,6 +6,8 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -29,7 +31,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 
 
 	/** Permet d'executer l'algorithme pour ajouter une pizza au menu.*/
-	public void execute() {
+	public void execute(){
 		System.out.println("Ajout d’une nouvelle pizza");
 		String code, nom;
 		double prix;
@@ -45,7 +47,11 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		// Création d'un nouveau et plus grand tableau de pizza.
 		Pizza p = new Pizza(code, nom, prix);
 
+		try{
 		PizzaDao.getInstance().saveNexPizza(p);
+		}catch(StockageException e){
+			System.out.println((e.getMessage()));
+		}
 	}
 
 }
