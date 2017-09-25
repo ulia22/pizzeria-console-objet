@@ -61,7 +61,6 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				System.out.println("Veuillez saisir la categorie (1.Viande 2.Sans-viande 3.Poisson");
 				categorie = Integer.parseInt(sc.nextLine());
 
-
 				switch (categorie){
 				case 1 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.VIANDE);

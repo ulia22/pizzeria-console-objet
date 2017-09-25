@@ -1,5 +1,7 @@
 package fr.pizzeria.model;
 
+import java.lang.reflect.Field;
+
 /** Classe représentant une pizza par instance. */
 public class Pizza {
 
@@ -16,12 +18,16 @@ public class Pizza {
 	 * Code litteral d'identification de la pizza représenté par l'instance
 	 * courrante de Pizza.
 	 */
+	@ToString(template = "## ")
 	private String code;
 	/** Nom de la pizza représenté par l'instance courrante de Pizza. */
+	@ToString(upperCase = true, template = "## ")
 	private String nom;
 	/** Prix de la pizza représenté par l'instance courrante de Pizza. */
+	@ToString(template = "(##€) ")
 	private double prix;
-	/***/
+	/** Categorie de la pizza (Viande, sans_viande, poisson, ...)*/
+	@ToString(template = "Categorie : ##")
 	private CategoriePizza categorie;
 
 	/**
@@ -44,8 +50,27 @@ public class Pizza {
 
 	@Override
 	public String toString() {
-		return this.getCode() + " -> " + this.getNom()  + "(" + this.getPrix() + "\u20AC)"+ " Catégorie : "+ this.categorie.getCategorie()+")";
-	}
+		StringBuilder strBuilder = new StringBuilder();
+		Class<? extends Pizza> context = this.getClass();
+		Field[] fields = context.getDeclaredFields();
+
+		for (Field field : fields) {
+			Object val = null;
+			try {
+				val = field.get(this);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			if(field.isAnnotationPresent(ToString.class) && val != null){
+				
+				if(field.getAnnotation(ToString.class).upperCase()){
+					val = val.toString().toUpperCase();
+				}
+				strBuilder.append(field.getAnnotation(ToString.class).template().replaceAll("##", val.toString()));
+			}
+		}
+		return strBuilder.toString();
+		}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
