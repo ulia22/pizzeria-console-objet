@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -32,41 +33,66 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	/**Permet d'executer l'algorithme pour modifier une pizza du menu.*/
 	public void execute() {
 		String code;
+		int categorie; 
+		Pizza p;
+
 		// Afficher les pizzas.
-		for (Pizza p : PizzaDao.getInstance().getListePizza()) {
-			System.out.println(p.toString());
+		for (Pizza pi : PizzaDao.getInstance().getListePizza()) {
+			System.out.println(pi.toString());
 		}
 		System.out.println("Veuillez choisir la pizza à modifier.");
 		System.out.println("(99 pour abandonner).");
 
-		code = sc.nextLine();
-		if (!code.equals("99")) {
-			String newCode, nom;
-			double prix;
+		try{
+			code = sc.nextLine();
+			if (!code.equals("99")) {
+				String newCode, nom;
+				double prix;
 
-			System.out.println("Veuillez saisir le code");
-			newCode = sc.nextLine();
+				System.out.println("Veuillez saisir le code");
+				newCode = sc.nextLine();
 
-			System.out.println("Veuillez saisir le nom (sans espace)");
-			nom = sc.nextLine();
+				System.out.println("Veuillez saisir le nom (sans espace)");
+				nom = sc.nextLine();
 
-			System.out.println("Veuillez saisir le prix");
-			prix = Double.parseDouble(sc.nextLine());
+				System.out.println("Veuillez saisir le prix");
+				prix = Double.parseDouble(sc.nextLine());
 
-			Pizza p = new Pizza(newCode, nom, prix);
+				System.out.println("Veuillez saisir la categorie (1.Viande 2.Sans-viande 3.Poisson");
+				categorie = Integer.parseInt(sc.nextLine());
 
-			try{
-				PizzaDao.getInstance().updatePizza(code, p);
-			}catch(StockageException e){
-				System.out.println(e.getMessage());
+
+				switch (categorie){
+				case 1 :
+					p = new Pizza(newCode, nom, prix, CategoriePizza.VIANDE);
+					PizzaDao.getInstance().updatePizza(code, p);
+					break;
+				case 2 :
+					p = new Pizza(newCode, nom, prix, CategoriePizza.SANS_VIANDE);
+					PizzaDao.getInstance().updatePizza(code, p);
+					break;
+				case 3 :
+					p = new Pizza(newCode, nom, prix, CategoriePizza.POISSON);
+					PizzaDao.getInstance().updatePizza(code, p);
+					break;
+				default:
+					System.out.println("La catégorie n'est pas valide.");
+					return;
+				}
 			}
-			
 
-			// Afficher la liste des pizza apres la modification.
-			for (Pizza pi : PizzaDao.getInstance().getListePizza()) {
-				System.out.println(pi.toString());
-			}
+		}catch(StockageException e){
+			System.out.println(e.getMessage());
+		}
+		catch(Exception n){
+			System.out.println(n.getMessage());
+		}
+
+		// Afficher la liste des pizza apres la modification.
+		for (Pizza pi : PizzaDao.getInstance().getListePizza()) {
+			System.out.println(pi.toString());
 		}
 	}
+
 
 }

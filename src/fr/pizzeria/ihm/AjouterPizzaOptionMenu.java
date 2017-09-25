@@ -6,8 +6,8 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDao;
-import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -35,22 +35,44 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		System.out.println("Ajout d’une nouvelle pizza");
 		String code, nom;
 		double prix;
+		int categorie;
 
 		// Créer la nouvelle pizza.
-		System.out.println("Veuillez saisir le code");
-		code = sc.nextLine();
-		System.out.println("Veuillez saisir le nom (sans espace)");
-		nom = sc.nextLine();
-		System.out.println("Veuillez saisir le prix");
-		prix = Double.parseDouble(sc.nextLine());
-
-		// Création d'un nouveau et plus grand tableau de pizza.
-		Pizza p = new Pizza(code, nom, prix);
-
 		try{
-		PizzaDao.getInstance().saveNexPizza(p);
+			System.out.println("Veuillez saisir le code");
+			code = sc.nextLine();
+			System.out.println("Veuillez saisir le nom (sans espace)");
+			nom = sc.nextLine();
+			System.out.println("Veuillez saisir le prix");
+			prix = Double.parseDouble(sc.nextLine());
+			System.out.println("Veuillez saisir la categorie (1.Viande 2.Sans-viande 3.Poisson");
+			categorie = Integer.parseInt(sc.nextLine());
+			Pizza p;
+			switch (categorie){
+			case 1 :
+				p = new Pizza(code, nom, prix, CategoriePizza.VIANDE);
+				break;
+			case 2 :
+				p = new Pizza(code, nom, prix, CategoriePizza.SANS_VIANDE);
+				break;
+			case 3 :
+				p = new Pizza(code, nom, prix, CategoriePizza.POISSON);
+				break;
+			default:
+				System.out.println("La catégorie n'est pas valide.");
+				return;
+			}
+
+
+			PizzaDao.getInstance().saveNexPizza(p);
 		}catch(StockageException e){
 			System.out.println((e.getMessage()));
+		}
+		catch (NumberFormatException n){
+			System.out.println(n.getMessage());
+		}
+		catch(Exception x){
+			System.out.println(x.getMessage());
 		}
 	}
 

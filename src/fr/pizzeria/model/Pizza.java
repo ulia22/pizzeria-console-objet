@@ -3,7 +3,7 @@ package fr.pizzeria.model;
 /** Classe représentant une pizza par instance. */
 public class Pizza {
 
-	
+
 	/**
 	 * ID global des pizzas. Contient un ID unique libre à associer à la
 	 * prochaine instance de Pizza, lequel est incrémenté de 1 appres chaque
@@ -21,6 +21,8 @@ public class Pizza {
 	private String nom;
 	/** Prix de la pizza représenté par l'instance courrante de Pizza. */
 	private double prix;
+	/***/
+	private CategoriePizza categorie;
 
 	/**
 	 * @param code
@@ -31,17 +33,18 @@ public class Pizza {
 	 * @param prix
 	 *            Prix de la pizza représenté par l'instance courrante de Pizza.
 	 */
-	public Pizza(String code, String nom, double prix) {
+	public Pizza(String code, String nom, double prix, CategoriePizza categorie) {
 		this.id = Pizza.currentGlobalId;
 		Pizza.currentGlobalId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
+		this.categorie = categorie;
 	}
 
 	@Override
 	public String toString() {
-		return this.getCode() + " -> " + this.getNom() + "(" + this.getPrix() + "\u20AC)";
+		return this.getCode() + " -> " + this.getNom()  + "(" + this.getPrix() + "\u20AC)"+ " Catégorie : "+ this.categorie.getCategorie()+")";
 	}
 
 	/* (non-Javadoc)
@@ -191,6 +194,20 @@ public class Pizza {
 	 */
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+
+	/**
+	 * @return the categorie
+	 */
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * @param categorie the categorie to set
+	 */
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
 	}
 
 }

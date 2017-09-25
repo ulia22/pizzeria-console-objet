@@ -36,12 +36,15 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		System.out.println("(99 pour abandonner).");
 
 		code = sc.nextLine();
-		if (!code.equals("99")) {
-			try{
-			PizzaDao.getInstance().deletePizza(code);
-			}catch(StockageException e){
-				System.out.println(e.getMessage());
+		try{
+			if (!code.equals("99")) {
+				PizzaDao.getInstance().deletePizza(code);
 			}
+		}catch(StockageException e){
+			System.out.println(e.getMessage());
+		}
+		catch(Exception n){
+			System.out.println(n.getMessage());
 		}
 	}
 

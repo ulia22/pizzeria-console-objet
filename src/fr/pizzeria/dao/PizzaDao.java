@@ -6,6 +6,7 @@ package fr.pizzeria.dao;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 import java.util.*;
 /**
@@ -32,14 +33,14 @@ public final class PizzaDao implements IPizzaDao {
 		listePizza = new ArrayList<Pizza>();
 		Pizza.setCurrentGlobalId(0);
 
-		listePizza.add(new Pizza("PEP", "Pépéroni", 12.5));
-		listePizza.add(new Pizza("MAR", "Margherita", 14.00));
-		listePizza.add(new Pizza("REIN", "La Reine", 11.50));
-		listePizza.add(new Pizza("FRO", "La 4 fromages", 12.00));
-		listePizza.add(new Pizza("CAN", "La cannibale", 12.50));
-		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00));
-		listePizza.add(new Pizza("ORI", "L’orientale", 13.50));
-		listePizza.add(new Pizza("IND", "L’indienne", 14.00));
+		listePizza.add(new Pizza("PEP", "Pépéroni", 12.5, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
+		listePizza.add(new Pizza("REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
+		listePizza.add(new Pizza("CAN", "La cannibale", 12.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("ORI", "L’orientale", 13.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("IND", "L’indienne", 14.00, CategoriePizza.VIANDE));
 
 	}
 
@@ -64,7 +65,7 @@ public final class PizzaDao implements IPizzaDao {
 	public List<Pizza> findAllPizza() {
 		return listePizza;
 	}
-	
+
 	/**Afficher le menu*/
 	public void displayPizzaMenu(){
 		for(Iterator<Pizza> it = getListePizza().listIterator(); it.hasNext();){
@@ -93,6 +94,7 @@ public final class PizzaDao implements IPizzaDao {
 				p.setCode(pizza.getCode());
 				p.setNom(pizza.getNom());
 				p.setPrix(pizza.getPrix());
+				p.setCategorie(pizza.getCategorie());
 				return ;
 			}
 		}

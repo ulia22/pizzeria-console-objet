@@ -41,7 +41,7 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	public static void main(String[] args) {
 		sc.useLocale(Locale.US);
-		int choice;
+		int choice = 0;
 		PizzaDao.getInstance().findAllPizza();
 
 		OptionMenu lister = new ListerPizzasOptionMenu();
@@ -60,13 +60,17 @@ public class PizzeriaAdminConsoleApp {
 
 		do {
 			System.out.println(menu);
-			choice = Integer.parseInt(sc.nextLine());
+			try{
+				choice = Integer.parseInt(sc.nextLine());
 
-			if(optionsMenu.get(choice) != null){
-				optionsMenu.get(choice).execute();
-			}
-			if(!optionsMenu.containsKey(choice)){
-				System.out.println("Mauvaise entrée.");
+				if(optionsMenu.get(choice) != null){
+					optionsMenu.get(choice).execute();
+				}
+				if(!optionsMenu.containsKey(choice)){
+					System.out.println("Mauvaise entrée.");
+				}
+			}catch(Exception e){
+				System.out.println(e.getMessage());
 			}
 
 		} while (choice != 99);

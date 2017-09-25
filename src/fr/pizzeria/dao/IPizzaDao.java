@@ -30,12 +30,7 @@ public interface IPizzaDao {
 	 * @throws SavePizzaException lance une exception si la pizza de param est nulle
 	 */
 	void saveNexPizza(Pizza pizza) throws SavePizzaException;
-	/**
-	 * Permet de modifier une pizza parmis l'ensemble des pizzas.
-	 * @param codePizza Le code de la pizza à modifier.
-	 * @param pizza L'objet pizza contenant les nouvelles valeurs pour la pizza avec le code codePizza.
-	 * @return true s'il n'y a pas eu d'erreur, sinon false.
-	 */
+
 	/**
 	 * Permet de modifier une pizza parmis l'ensemble des pizzas.
 	 * @param codePizza Le code de la pizza à modifier.
@@ -44,7 +39,6 @@ public interface IPizzaDao {
 	 */
 	void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException;
 
-	
 	/**
 	 * Permet de supprimer une instance pizza de l'ensemble des pizzas.
 	 * @param codePizza Le code de la pizza à supprimer.
