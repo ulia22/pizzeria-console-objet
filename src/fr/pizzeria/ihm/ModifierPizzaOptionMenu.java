@@ -5,6 +5,7 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.CategoriePizza;
@@ -20,13 +21,17 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	/**Le scanner pour lire les inputs de la console.*/
 	private Scanner sc;
 
+	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
+	private IPizzaDao IPizza;
+	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
 	 * @param sc Scanner vers le System.in.
 	 */
-	public ModifierPizzaOptionMenu(Scanner sc) {
+	public ModifierPizzaOptionMenu(Scanner sc, IPizzaDao IPizza) {
 		super();
 		this.sc = sc;
+		this.IPizza = IPizza;
 	}
 
 
@@ -37,7 +42,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		Pizza p;
 
 		// Afficher les pizzas.
-		for (Pizza pi : PizzaDao.getInstance().getListePizza()) {
+		for (Pizza pi : IPizza.findAllPizza()) {
 			System.out.println(pi.toString());
 		}
 		System.out.println("Veuillez choisir la pizza à modifier.");
@@ -64,15 +69,15 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				switch (categorie){
 				case 1 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.VIANDE);
-					PizzaDao.getInstance().updatePizza(code, p);
+					IPizza.updatePizza(code, p);
 					break;
 				case 2 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.SANS_VIANDE);
-					PizzaDao.getInstance().updatePizza(code, p);
+					IPizza.updatePizza(code, p);
 					break;
 				case 3 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.POISSON);
-					PizzaDao.getInstance().updatePizza(code, p);
+					IPizza.updatePizza(code, p);
 					break;
 				default:
 					System.out.println("La catégorie n'est pas valide.");

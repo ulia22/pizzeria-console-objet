@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
 import fr.pizzeria.ihm.FinProgrammeOptionMenu;
@@ -42,12 +43,12 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		sc.useLocale(Locale.US);
 		int choice = 0;
-		PizzaDao.getInstance().findAllPizza();
+		IPizzaDao IPizza = PizzaDao.getInstance();
 
-		OptionMenu lister = new ListerPizzasOptionMenu();
-		OptionMenu ajouter = new AjouterPizzaOptionMenu(sc);
-		OptionMenu modifier = new ModifierPizzaOptionMenu(sc);
-		OptionMenu supprimer = new SupprimerPizzaOptionMenu(sc);
+		OptionMenu lister = new ListerPizzasOptionMenu(IPizza);
+		OptionMenu ajouter = new AjouterPizzaOptionMenu(sc, IPizza);
+		OptionMenu modifier = new ModifierPizzaOptionMenu(sc, IPizza);
+		OptionMenu supprimer = new SupprimerPizzaOptionMenu(sc, IPizza);
 		OptionMenu stopperProgramme = new FinProgrammeOptionMenu();
 
 		optionsMenu = new LinkedHashMap<Integer, OptionMenu>();

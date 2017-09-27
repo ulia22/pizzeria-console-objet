@@ -45,4 +45,10 @@ public interface IPizzaDao {
 	 * @throws DeletePizzaException lance une exception si le code fournis ne correspond à aucune pizza
 	 */
 	void deletePizza(String codePizza) throws DeletePizzaException;
+
+	
+	/**
+	 * Permet d'afficher la liste des pizza sous la forme d'un menu.
+	 */
+	void displayPizzaMenu(); 
 }

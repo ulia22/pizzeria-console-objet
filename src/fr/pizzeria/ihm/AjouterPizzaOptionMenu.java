@@ -5,7 +5,7 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -19,14 +19,18 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	/**Le scanner pour lire les inputs de la console.*/
 	private Scanner sc;
-
+	
+	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
+	private IPizzaDao IPizza;
+	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
 	 * @param sc Scanner vers le System.in.
 	 */
-	public AjouterPizzaOptionMenu(Scanner sc) {
+	public AjouterPizzaOptionMenu(Scanner sc, IPizzaDao IPizza) {
 		super();
 		this.sc = sc;
+		this.IPizza = IPizza;
 	}
 
 
@@ -64,7 +68,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 			}
 
 
-			PizzaDao.getInstance().saveNexPizza(p);
+			IPizza.saveNexPizza(p);
 		}catch(StockageException e){
 			System.out.println((e.getMessage()));
 		}
