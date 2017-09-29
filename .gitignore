@@ -1,4 +1,8 @@
-/bin/
+﻿#Dossier contenant les .class fait par après compilation
+bin/
 
+#Fichier générés par eclipses
 .classpath
 .project
+target/
+.settings/
