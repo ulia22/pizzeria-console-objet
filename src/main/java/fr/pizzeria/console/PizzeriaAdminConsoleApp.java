@@ -43,7 +43,7 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		sc.useLocale(Locale.US);
 		int choice = 0;
-		IPizzaDao IPizza = PizzaDao.getInstance()
+		IPizzaDao IPizza = PizzaDao.getInstance();
 
 		OptionMenu lister = new ListerPizzasOptionMenu(IPizza);
 		OptionMenu ajouter = new AjouterPizzaOptionMenu(sc, IPizza);
