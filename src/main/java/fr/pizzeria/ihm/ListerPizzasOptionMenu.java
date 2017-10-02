@@ -12,7 +12,7 @@ import fr.pizzeria.dao.IPizzaDao;
  */
 public class ListerPizzasOptionMenu extends OptionMenu {
 	
-	private IPizzaDao IPizza;
+	private IPizzaDao iPizza;
 	
 	
 	/**
@@ -21,14 +21,14 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	 */
 	public ListerPizzasOptionMenu(IPizzaDao iPizza) {
 		super();
-		this.IPizza = iPizza;
+		this.iPizza = iPizza;
 	}
 
 
 	/** Permet d'executer l'algorithme pour afficher le menu.*/
 	public void execute() {
 		System.out.println("Liste des pizzas.");
-		this.IPizza.displayPizzaMenu();
+		this.iPizza.displayPizzaMenu();
 	}
 
 }

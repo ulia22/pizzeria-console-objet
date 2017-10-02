@@ -22,16 +22,16 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	private Scanner sc;
 
 	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
-	private IPizzaDao IPizza;
+	private IPizzaDao iPizza;
 	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
 	 * @param sc Scanner vers le System.in.
 	 */
-	public ModifierPizzaOptionMenu(Scanner sc, IPizzaDao IPizza) {
+	public ModifierPizzaOptionMenu(Scanner sc, IPizzaDao iPizza) {
 		super();
 		this.sc = sc;
-		this.IPizza = IPizza;
+		this.iPizza = iPizza;
 	}
 
 
@@ -42,7 +42,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		Pizza p;
 
 		// Afficher les pizzas.
-		for (Pizza pi : IPizza.findAllPizza()) {
+		for (Pizza pi : iPizza.findAllPizza()) {
 			System.out.println(pi.toString());
 		}
 		System.out.println("Veuillez choisir la pizza à modifier.");
@@ -51,7 +51,8 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		try{
 			code = sc.nextLine();
 			if (!code.equals("99")) {
-				String newCode, nom;
+				String newCode;
+				String nom;
 				double prix;
 
 				System.out.println("Veuillez saisir le code");
@@ -69,15 +70,15 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				switch (categorie){
 				case 1 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.VIANDE);
-					IPizza.updatePizza(code, p);
+					iPizza.updatePizza(code, p);
 					break;
 				case 2 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.SANS_VIANDE);
-					IPizza.updatePizza(code, p);
+					iPizza.updatePizza(code, p);
 					break;
 				case 3 :
 					p = new Pizza(newCode, nom, prix, CategoriePizza.POISSON);
-					IPizza.updatePizza(code, p);
+					iPizza.updatePizza(code, p);
 					break;
 				default:
 					System.out.println("La catégorie n'est pas valide.");

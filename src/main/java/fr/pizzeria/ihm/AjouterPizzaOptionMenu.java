@@ -21,23 +21,24 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	private Scanner sc;
 	
 	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
-	private IPizzaDao IPizza;
+	private IPizzaDao iPizza;
 	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
 	 * @param sc Scanner vers le System.in.
 	 */
-	public AjouterPizzaOptionMenu(Scanner sc, IPizzaDao IPizza) {
+	public AjouterPizzaOptionMenu(Scanner sc, IPizzaDao iPizza) {
 		super();
 		this.sc = sc;
-		this.IPizza = IPizza;
+		this.iPizza = iPizza;
 	}
 
 
 	/** Permet d'executer l'algorithme pour ajouter une pizza au menu.*/
 	public void execute(){
 		System.out.println("Ajout d’une nouvelle pizza");
-		String code, nom;
+		String code;
+		String nom;
 		double prix;
 		int categorie;
 
@@ -68,7 +69,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 			}
 
 
-			IPizza.saveNexPizza(p);
+			iPizza.saveNexPizza(p);
 		}catch(StockageException e){
 			System.out.println((e.getMessage()));
 		}

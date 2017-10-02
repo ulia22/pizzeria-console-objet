@@ -30,7 +30,7 @@ public final class PizzaDao implements IPizzaDao {
 	 */
 	private PizzaDao() {
 		super();
-		listePizza = new ArrayList<Pizza>();
+		listePizza = new ArrayList<>();
 		Pizza.setCurrentGlobalId(0);
 
 		listePizza.add(new Pizza("PEP", "Pépéroni", 12.5, CategoriePizza.VIANDE));
@@ -48,13 +48,9 @@ public final class PizzaDao implements IPizzaDao {
 	 * Est utilisé par les autre classes pour récupérer l'instance du singleton en respectant l'encapsulation.
 	 * @return L'instance du singleton.
 	 */
-	public final static PizzaDao getInstance(){
+	public static final PizzaDao getInstance(){
 		if(PizzaDao.instance == null){
-			synchronized(PizzaDao.class) {
-				if (PizzaDao.instance == null) {
-					PizzaDao.instance = new PizzaDao();
-				}
-			}
+			PizzaDao.instance = new PizzaDao();
 		}
 		return instance;
 	}

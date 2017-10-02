@@ -27,12 +27,12 @@ public class PizzeriaAdminConsoleApp {
 	static Map<Integer, OptionMenu> optionsMenu;
 
 	/** Chaine de caractère contenant le menu. */
-	private static String menu = new String(
+	private static String menu = 
 			"***** Pizzeria Administration *****\n" + "1. Lister les pizzas\n" + "2. Ajouter une nouvelle pizza\n"
-					+ "3. Mettre à jour une pizza\n" + "4. Supprimer une pizza\n" + "99. Sortir\n");
+					+ "3. Mettre à jour une pizza\n" + "4. Supprimer une pizza\n" + "99. Sortir\n";
 
 	/** Scanner qui sera utilisé dans toute l'application */
-	public static Scanner sc = new Scanner(System.in);
+	public static final Scanner SC = new Scanner(System.in);
 
 	/**
 	 * Point d'entré de l'application.
@@ -41,17 +41,17 @@ public class PizzeriaAdminConsoleApp {
 	 *            Non-utilisés dans le cadre de l'application.
 	 */
 	public static void main(String[] args) {
-		sc.useLocale(Locale.US);
+		SC.useLocale(Locale.US);
 		int choice = 0;
-		IPizzaDao IPizza = PizzaDao.getInstance();
+		IPizzaDao iPizza = PizzaDao.getInstance();
 
-		OptionMenu lister = new ListerPizzasOptionMenu(IPizza);
-		OptionMenu ajouter = new AjouterPizzaOptionMenu(sc, IPizza);
-		OptionMenu modifier = new ModifierPizzaOptionMenu(sc, IPizza);
-		OptionMenu supprimer = new SupprimerPizzaOptionMenu(sc, IPizza);
+		OptionMenu lister = new ListerPizzasOptionMenu(iPizza);
+		OptionMenu ajouter = new AjouterPizzaOptionMenu(SC, iPizza);
+		OptionMenu modifier = new ModifierPizzaOptionMenu(SC, iPizza);
+		OptionMenu supprimer = new SupprimerPizzaOptionMenu(SC, iPizza);
 		OptionMenu stopperProgramme = new FinProgrammeOptionMenu();
 
-		optionsMenu = new LinkedHashMap<Integer, OptionMenu>();
+		optionsMenu = new LinkedHashMap<>();
 
 		optionsMenu.put(1, lister);
 		optionsMenu.put(2, ajouter);
@@ -62,7 +62,7 @@ public class PizzeriaAdminConsoleApp {
 		do {
 			System.out.println(menu);
 			try{
-				choice = Integer.parseInt(sc.nextLine());
+				choice = Integer.parseInt(SC.nextLine());
 
 				if(optionsMenu.get(choice) != null){
 					optionsMenu.get(choice).execute();
@@ -75,6 +75,6 @@ public class PizzeriaAdminConsoleApp {
 			}
 
 		} while (choice != 99);
-		sc.close();
+		SC.close();
 	}
 }

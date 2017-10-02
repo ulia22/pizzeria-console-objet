@@ -19,30 +19,30 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	Scanner sc;
 
 	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
-	private IPizzaDao IPizza;
+	private IPizzaDao iPizza;
 	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
 	 * @param sc Scanner vers le System.in.
 	 */
-	public SupprimerPizzaOptionMenu(Scanner sc, IPizzaDao IPizza) {
+	public SupprimerPizzaOptionMenu(Scanner sc, IPizzaDao iPizza) {
 		super();
 		this.sc = sc;
-		this.IPizza = IPizza;
+		this.iPizza = iPizza;
 	}
 
 	/** Permet d'executer l'algorithme pour supprimer une pizza du menu.*/
 	public void execute() {
 		String code;
 		// Afficher les pizzas.
-		IPizza.displayPizzaMenu();
+		iPizza.displayPizzaMenu();
 		System.out.println("Veuillez choisir la pizza à supprimer.");
 		System.out.println("(99 pour abandonner).");
 
 		code = sc.nextLine();
 		try{
 			if (!code.equals("99")) {
-				IPizza.deletePizza(code);
+				iPizza.deletePizza(code);
 			}
 		}catch(StockageException e){
 			System.out.println(e.getMessage());
