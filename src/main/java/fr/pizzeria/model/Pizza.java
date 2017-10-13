@@ -2,6 +2,13 @@ package fr.pizzeria.model;
 
 import java.lang.reflect.Field;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
+
 /** Classe représentant une pizza par instance. */
 public class Pizza {
 
@@ -29,6 +36,10 @@ public class Pizza {
 	/** Categorie de la pizza (Viande, sans_viande, poisson, ...)*/
 	@ToString(template = "Categorie : ##")
 	private CategoriePizza categorie;
+
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
+
 
 	/**
 	 * @param code
@@ -59,10 +70,10 @@ public class Pizza {
 			try {
 				val = field.get(this);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.info(e.getMessage());
 			}
 			if(field.isAnnotationPresent(ToString.class) && val != null){
-				
+
 				if(field.getAnnotation(ToString.class).upperCase()){
 					val = val.toString().toUpperCase();
 				}
@@ -70,61 +81,29 @@ public class Pizza {
 			}
 		}
 		return strBuilder.toString();
-		}
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(prix);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+		return new HashCodeBuilder().append(this.nom).append(this.prix).append(this.code).append(this.categorie).append(this.id).toHashCode();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
+	public boolean equals(Object o) {
+		if (!(o instanceof Pizza)){
 			return false;
 		}
-		if (!(obj instanceof Pizza)) {
-			return false;
-		}
-		Pizza other = (Pizza) obj;
-		if (code == null) {
-			if (other.code != null) {
-				return false;
-			}
-		} else if (!code.equals(other.code)) {
-			return false;
-		}
-		if (id != other.id) {
-			return false;
-		}
-		if (nom == null) {
-			if (other.nom != null) {
-				return false;
-			}
-		} else if (!nom.equals(other.nom)) {
-			return false;
-		}
-		
-		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix)) {
-			return false;
-		}
-		return true;
+
+		Pizza other = (Pizza)o;
+		EqualsBuilder builder = new EqualsBuilder();
+		builder.append(this.code, other.getCode()).append(this.nom, other.getNom()).append(this.prix, other.getPrix()).append(this.categorie, other.getCategorie());
+		return builder.isEquals();
 	}
 
 	/**

@@ -5,6 +5,9 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.StockageException;
 
@@ -13,13 +16,17 @@ import fr.pizzeria.exception.StockageException;
  * @author ETY9
  *
  */
-public class SupprimerPizzaOptionMenu extends OptionMenu {
+public class SupprimerPizzaOptionMenu implements OptionMenu {
 
 	/**Le scanner pour lire les inputs de la console.*/
 	Scanner sc;
 
 	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
 	private IPizzaDao iPizza;
+	
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
+	
 	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
@@ -36,8 +43,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		String code;
 		// Afficher les pizzas.
 		iPizza.displayPizzaMenu();
-		System.out.println("Veuillez choisir la pizza à supprimer.");
-		System.out.println("(99 pour abandonner).");
+		LOG.info("Veuillez choisir la pizza à supprimer.");
+		LOG.info("(99 pour abandonner).");
 
 		code = sc.nextLine();
 		try{
@@ -45,10 +52,10 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 				iPizza.deletePizza(code);
 			}
 		}catch(StockageException e){
-			System.out.println(e.getMessage());
+			LOG.info(e.getMessage());
 		}
 		catch(Exception n){
-			System.out.println(n.getMessage());
+			LOG.info(n.getMessage());
 		}
 	}
 

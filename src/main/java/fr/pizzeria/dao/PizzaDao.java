@@ -6,9 +6,13 @@ package fr.pizzeria.dao;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 import java.util.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * PizzaDao est un manager qui permet de gérer les manipulations et le stockage de l'ensemble des pizzas.
  * Ceci se passe de façon opaque quand au autres classe.
@@ -23,7 +27,9 @@ public final class PizzaDao implements IPizzaDao {
 	/** Tableau contenant la liste des pizzas au menu. */
 	private List<Pizza> listePizza;
 
-
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
+	
 
 	/**
 	 * Le constructeur privé du Singleton.
@@ -65,7 +71,8 @@ public final class PizzaDao implements IPizzaDao {
 	/**Afficher le menu*/
 	public void displayPizzaMenu(){
 		for(Iterator<Pizza> it = getListePizza().listIterator(); it.hasNext();){
-			System.out.println(it.next().toString());
+			String str = it.next().toString();
+			LOG.info(str);
 		}
 	}
 

@@ -3,6 +3,9 @@
  */
 package fr.pizzeria.ihm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.IPizzaDao;
 
 /**
@@ -10,10 +13,12 @@ import fr.pizzeria.dao.IPizzaDao;
  * @author ETY9
  *
  */
-public class ListerPizzasOptionMenu extends OptionMenu {
+public class ListerPizzasOptionMenu implements OptionMenu {
 	
 	private IPizzaDao iPizza;
 	
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
 	
 	/**
 	 * Constructeur, qui a besoin d'une reference vers l'interface pizzaDao contenant l'ensemble des pizzas.
@@ -27,7 +32,7 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 
 	/** Permet d'executer l'algorithme pour afficher le menu.*/
 	public void execute() {
-		System.out.println("Liste des pizzas.");
+		LOG.info("Liste des pizzas.");
 		this.iPizza.displayPizzaMenu();
 	}
 

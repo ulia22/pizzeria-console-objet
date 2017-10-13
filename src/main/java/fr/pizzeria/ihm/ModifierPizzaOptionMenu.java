@@ -5,6 +5,9 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.exception.StockageException;
@@ -16,13 +19,16 @@ import fr.pizzeria.model.Pizza;
  * @author ETY9
  *
  */
-public class ModifierPizzaOptionMenu extends OptionMenu {
+public class ModifierPizzaOptionMenu implements OptionMenu {
 
 	/**Le scanner pour lire les inputs de la console.*/
 	private Scanner sc;
 
 	/**Reference vers le singleton IPizzaDao qui accede à l'ensembles des pizza et fournis des méthodes pour le manipuler.*/
 	private IPizzaDao iPizza;
+	
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
 	
 	/**
 	 * Constructeur, résupérant le scanner pour lire les inputs de la console.
@@ -43,10 +49,11 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 		// Afficher les pizzas.
 		for (Pizza pi : iPizza.findAllPizza()) {
-			System.out.println(pi.toString());
+			String str = pi.toString();
+			LOG.info(str);
 		}
-		System.out.println("Veuillez choisir la pizza à modifier.");
-		System.out.println("(99 pour abandonner).");
+		LOG.info("Veuillez choisir la pizza à modifier.");
+		LOG.info("(99 pour abandonner).");
 
 		try{
 			code = sc.nextLine();
@@ -55,16 +62,16 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				String nom;
 				double prix;
 
-				System.out.println("Veuillez saisir le code");
+				LOG.info("Veuillez saisir le code");
 				newCode = sc.nextLine();
 
-				System.out.println("Veuillez saisir le nom (sans espace)");
+				LOG.info("Veuillez saisir le nom (sans espace)");
 				nom = sc.nextLine();
 
-				System.out.println("Veuillez saisir le prix");
+				LOG.info("Veuillez saisir le prix");
 				prix = Double.parseDouble(sc.nextLine());
 
-				System.out.println("Veuillez saisir la categorie (1.Viande 2.Sans-viande 3.Poisson");
+				LOG.info("Veuillez saisir la categorie (1.Viande 2.Sans-viande 3.Poisson");
 				categorie = Integer.parseInt(sc.nextLine());
 
 				switch (categorie){
@@ -81,21 +88,22 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 					iPizza.updatePizza(code, p);
 					break;
 				default:
-					System.out.println("La catégorie n'est pas valide.");
+					LOG.info("La catégorie n'est pas valide.");
 					return;
 				}
 			}
 
 		}catch(StockageException e){
-			System.out.println(e.getMessage());
+			LOG.info(e.getMessage());
 		}
 		catch(Exception n){
-			System.out.println(n.getMessage());
+			LOG.info(n.getMessage());
 		}
 
 		// Afficher la liste des pizza apres la modification.
 		for (Pizza pi : PizzaDao.getInstance().getListePizza()) {
-			System.out.println(pi.toString());
+			String s = pi.toString();
+			LOG.info(s);
 		}
 	}
 

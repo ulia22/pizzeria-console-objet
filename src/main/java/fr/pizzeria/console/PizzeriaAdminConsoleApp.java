@@ -5,6 +5,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
@@ -13,6 +16,7 @@ import fr.pizzeria.ihm.ListerPizzasOptionMenu;
 import fr.pizzeria.ihm.ModifierPizzaOptionMenu;
 import fr.pizzeria.ihm.OptionMenu;
 import fr.pizzeria.ihm.SupprimerPizzaOptionMenu;
+
 
 /**
  * Classe contenant le point d'entré du programme, utilisant la console pour
@@ -34,6 +38,9 @@ public class PizzeriaAdminConsoleApp {
 	/** Scanner qui sera utilisé dans toute l'application */
 	public static final Scanner SC = new Scanner(System.in);
 
+	/** LOG : Logger */
+	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
+	
 	/**
 	 * Point d'entré de l'application.
 	 * 
@@ -60,7 +67,7 @@ public class PizzeriaAdminConsoleApp {
 		optionsMenu.put(99, stopperProgramme);
 
 		do {
-			System.out.println(menu);
+			LOG.info(menu);
 			try{
 				choice = Integer.parseInt(SC.nextLine());
 
@@ -68,10 +75,10 @@ public class PizzeriaAdminConsoleApp {
 					optionsMenu.get(choice).execute();
 				}
 				if(!optionsMenu.containsKey(choice)){
-					System.out.println("Mauvaise entrée.");
+					LOG.info("Mauvaise entrée.");
 				}
 			}catch(Exception e){
-				System.out.println(e.getMessage());
+				LOG.info(e.getMessage());
 			}
 
 		} while (choice != 99);
