@@ -70,7 +70,8 @@ public class Pizza {
 			try {
 				val = field.get(this);
 			} catch (Exception e) {
-				LOG.info(e.getMessage());
+				String msg = e.getMessage();
+				LOG.info(msg);
 			}
 			if(field.isAnnotationPresent(ToString.class) && val != null){
 

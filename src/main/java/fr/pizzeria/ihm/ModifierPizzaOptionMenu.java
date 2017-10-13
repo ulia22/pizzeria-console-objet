@@ -57,7 +57,7 @@ public class ModifierPizzaOptionMenu implements OptionMenu {
 
 		try{
 			code = sc.nextLine();
-			if (!code.equals("99")) {
+			if (!"99".equals(code)) {
 				String newCode;
 				String nom;
 				double prix;
@@ -94,10 +94,12 @@ public class ModifierPizzaOptionMenu implements OptionMenu {
 			}
 
 		}catch(StockageException e){
-			LOG.info(e.getMessage());
+			String msg = e.getMessage();
+			LOG.info(msg);
 		}
 		catch(Exception n){
-			LOG.info(n.getMessage());
+			String msg = n.getMessage();
+			LOG.info(msg);
 		}
 
 		// Afficher la liste des pizza apres la modification.

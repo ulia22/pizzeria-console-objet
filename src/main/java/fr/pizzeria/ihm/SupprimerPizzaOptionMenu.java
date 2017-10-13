@@ -48,14 +48,16 @@ public class SupprimerPizzaOptionMenu implements OptionMenu {
 
 		code = sc.nextLine();
 		try{
-			if (!code.equals("99")) {
+			if (!"99".equals(code)) {
 				iPizza.deletePizza(code);
 			}
 		}catch(StockageException e){
-			LOG.info(e.getMessage());
+			String msg = e.getMessage();
+			LOG.info(msg);
 		}
 		catch(Exception n){
-			LOG.info(n.getMessage());
+			String msg = n.getMessage();
+			LOG.info(msg);
 		}
 	}
 

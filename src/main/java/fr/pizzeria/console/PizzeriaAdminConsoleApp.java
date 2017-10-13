@@ -78,7 +78,8 @@ public class PizzeriaAdminConsoleApp {
 					LOG.info("Mauvaise entrée.");
 				}
 			}catch(Exception e){
-				LOG.info(e.getMessage());
+				String msg = e.getMessage();
+				LOG.info(msg);
 			}
 
 		} while (choice != 99);

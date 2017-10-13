@@ -77,13 +77,16 @@ public class AjouterPizzaOptionMenu implements OptionMenu {
 
 			iPizza.saveNexPizza(p);
 		}catch(StockageException e){
-			LOG.info((e.getMessage()));
+			String msg = e.getMessage();
+			LOG.info(msg);
 		}
 		catch (NumberFormatException n){
-			LOG.info(n.getMessage());
+			String msg = n.getMessage();
+			LOG.info(msg);
 		}
 		catch(Exception x){
-			LOG.info(x.getMessage());
+			String msg = x.getMessage();
+			LOG.info(msg);
 		}
 	}
 
