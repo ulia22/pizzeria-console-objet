@@ -3,6 +3,9 @@
  */
 package fr.pizzeria.model;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 /**
  * @author ETY9
  *
@@ -10,13 +13,18 @@ package fr.pizzeria.model;
 public enum CategoriePizza {
 	VIANDE ("Viande"), POISSON("Poisson"), SANS_VIANDE("Sans Viande");
 	
-	private String categorie;
+	private String libel;
 	
-	private CategoriePizza(String categorie){
-		this.categorie = categorie;
+	private CategoriePizza(String libel){
+		this.libel = libel;
 	}
 	
-	public String getCategorie(){
-		return this.categorie;
+	public String getLibel(){
+		return this.libel;
+	}
+	
+	public static Optional<CategoriePizza> libelToCategorie(String libel){
+		CategoriePizza[] values = values();
+		return Stream.of(values).filter(c -> c.getLibel().equals(libel)).findFirst();
 	}
 }

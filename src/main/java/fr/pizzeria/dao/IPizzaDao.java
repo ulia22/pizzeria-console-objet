@@ -29,7 +29,7 @@ public interface IPizzaDao {
 	 * @param pizza L'objet pizza à insérer.
 	 * @throws SavePizzaException lance une exception si la pizza de param est nulle
 	 */
-	void saveNexPizza(Pizza pizza) throws SavePizzaException;
+	void saveNextPizza(Pizza pizza) throws SavePizzaException;
 
 	/**
 	 * Permet de modifier une pizza parmis l'ensemble des pizzas.

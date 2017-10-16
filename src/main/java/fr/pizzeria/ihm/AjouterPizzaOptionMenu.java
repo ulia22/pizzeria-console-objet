@@ -3,6 +3,7 @@
  */
 package fr.pizzeria.ihm;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
@@ -75,7 +76,7 @@ public class AjouterPizzaOptionMenu implements OptionMenu {
 			}
 
 
-			iPizza.saveNexPizza(p);
+			iPizza.saveNextPizza(p);
 		}catch(StockageException e){
 			String msg = e.getMessage();
 			LOG.info(msg);
@@ -84,7 +85,7 @@ public class AjouterPizzaOptionMenu implements OptionMenu {
 			String msg = n.getMessage();
 			LOG.info(msg);
 		}
-		catch(Exception x){
+		catch(InputMismatchException x){
 			String msg = x.getMessage();
 			LOG.info(msg);
 		}

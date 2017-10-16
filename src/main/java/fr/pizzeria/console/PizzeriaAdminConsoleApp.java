@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.dao.impl.PizzaDao;
+import fr.pizzeria.dao.impl.PizzaDaoJDBC;
 import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
 import fr.pizzeria.ihm.FinProgrammeOptionMenu;
 import fr.pizzeria.ihm.ListerPizzasOptionMenu;
@@ -50,7 +51,7 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		SC.useLocale(Locale.US);
 		int choice = 0;
-		IPizzaDao iPizza = PizzaDao.getInstance();
+		IPizzaDao iPizza = PizzaDaoJDBC.getInstance();
 
 		OptionMenu lister = new ListerPizzasOptionMenu(iPizza);
 		OptionMenu ajouter = new AjouterPizzaOptionMenu(SC, iPizza);

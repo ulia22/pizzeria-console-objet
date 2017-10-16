@@ -1,8 +1,9 @@
 /**
  * 
  */
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.impl;
 
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -79,7 +80,7 @@ public final class PizzaDao implements IPizzaDao {
 	/* (non-Javadoc)
 	 * @see fr.pizzeria.dao.IPizzaDao#saveNexPizza(fr.pizzeria.model.Pizza)
 	 */
-	public void saveNexPizza(Pizza pizza) throws SavePizzaException {
+	public void saveNextPizza(Pizza pizza) throws SavePizzaException {
 		if(pizza == null){
 			throw new SavePizzaException("La pizza fournis est une reference null");
 		}

@@ -51,6 +51,7 @@ public class Pizza {
 	 *            Prix de la pizza représenté par l'instance courrante de Pizza.
 	 */
 	public Pizza(String code, String nom, double prix, CategoriePizza categorie) {
+		super();
 		this.id = Pizza.currentGlobalId;
 		Pizza.currentGlobalId++;
 		this.code = code;
@@ -59,6 +60,16 @@ public class Pizza {
 		this.categorie = categorie;
 	}
 
+
+	public Pizza(int id, String code, String nom, double prix, CategoriePizza categorie) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.nom = nom;
+		this.prix = prix;
+		this.categorie = categorie;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder strBuilder = new StringBuilder();
